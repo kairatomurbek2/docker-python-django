@@ -1,2 +1,2 @@
 # docker-python-django
-Examples of dockerfile, docker compos for django
+Examples of dockerfile, docker compose for django
