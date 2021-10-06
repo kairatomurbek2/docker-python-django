@@ -1,0 +1,47 @@
+version: '3.8'
+#
+# File for local development
+#
+services:
+
+  backend:
+    depends_on:
+      - postgres
+    restart: always
+    build:
+      context: .
+      target: backend
+    environment:
+      - DEBUG=True
+      - PRIMARY_DB_NAME=name_db
+      - PRIMARY_DB_USER=user_db
+      - PRIMARY_DB_PASS=passwd_db
+      - PRIMARY_DB_HOST=postgres
+      - PRIMARY_DB_PORT=5432
+      - SECRET_KEY=sdfdfdfdfer4dfgdfw4
+    volumes:
+      - project_name_media:/code/src/media
+    ports:
+      - 8000:8000
+    networks:
+      backend:
+
+  postgres:
+    restart: always
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=cvm_mailing_db
+      - POSTGRES_USER=cvm_mailing_user
+      - POSTGRES_PASSWORD=cvm_mailing_db_passwd
+    volumes:
+      - project_name_postgres:/var/lib/postgresql/data
+    networks:
+      backend:
+
+
+volumes:
+  project_name_media:
+  project_name_postgres:
+
+networks:
+  backend:
